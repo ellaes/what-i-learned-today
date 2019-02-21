@@ -298,6 +298,57 @@ var의 유효 범위는 전체 외부 함수까지이지만, let은 변수를 �
     }
 ```
 
+## Iterators + For...Of
+
+Iterator 객체는 CLR의 IEnumerable 혹은 Java의 Iterable처럼 사용자 정의의 반복을 가능하게 해줌.
+for..of 반복문이 ES6에서 추가 되었으며 for..in 반복분과 달리 Iterator 기반의 컬렉션 전용 반복문
+
+```
+    let fibonacci = {
+        [Symbol.iterator]() {
+            let pre = 0, cur = 1;
+            
+            return {
+                next () {
+                    [pre, cur] = [cur, pre + cur];
+                    return { done: false, value: cur}
+                }
+            }
+        }
+    }
+
+    for(var n of fibonacci) {
+        //truncate the sequence at 1000
+        if(n > 1000)
+            break;
+        console.log(n) // 1, 2, 3, 5, 8, ...987
+    }
+```
+
+Iteration은 아래의 duck-type 인터페이스를 기반
+(설명을 위해 TypeScript의 타입문법 사용)
+```
+    interface IteratorResult {
+        done: boolean;
+        value: any;
+    }
+    
+    interface Iterator {
+        next(): IteratorResult;
+    }
+    
+    interface Iterable {
+        [Symbol.iterator](): Iterator
+    }
+```
+
+### Generators
+Generators는 function*와  yield 키워드를 이용하여 iterator 선언을 단순하게 작성할 수 있게 도와줌.
+function*로 선언한 함수는 Generator 객체를 반환
+Generators는 iterator의 하위타입이며 next와 throw 메서드를 가짐
+이 메세드드로 인해 yield 키워드로 반환된 값은 다시 generator에 주입되거나 예외처리 할 수 있게 됨
+
+
 
 
 
