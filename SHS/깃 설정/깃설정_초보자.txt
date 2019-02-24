@@ -1,0 +1,42 @@
+####=========== 1.유저 로그인 설정 ===========
+git config --global user.name "이름"
+git config --glogal user.email "이메일주소"
+
+####===========2. 저장소로 사용할 경로로 이동 ===========
+로컬PC: 저장소로 사용할 폴더 생성 #/d/HYESU/Git_prj
+cd [로컬 경로] #cd /d/HYESU/Git_prj
+pwd #경로확인
+git init #해당 경로로 사용 .git 생성됨
+
+####===========3. 깃 저장소 복제 ===========
+# url : https://github.com/ellaes/what-i-learned-today.git
+# git clone [깃 저장소]
+git clone https://github.com/ellaes/what-i-learned-today.git
+
+ls -l #'what-i-learned-today 폴더 생성됐는지 확인
+
+로컬PC: 로컬 저장소에서 what-i-learned-today/사용할새폴더 생성
+
+####=========== 4. branch 생성(옵션) ===========
+cd [3번에서 생성한 새폴더]  #cd /d/HYESU/Git_prj/what-i-learned-today/SHS
+git branch [브랜치명] #ex: git branch shs
+
+#master -> 새로 생성한 브랜치로 switch
+git checkout 새로 생성한 브랜치명 #git branch shs
+
+####===========5.  로컬에 생성한 파일 -> 깃저장소 반영===========
+#1) 깃 리모트 저장소 추가
+git remote add [리모트저장소명] [저장소URL]
+  #ex: git remote add origin_shs https://github.com/ellaes/what-i-learned-today.git
+
+git remote #리모트 저장소 리스트 확인
+
+#2) 반영할 파일 추가
+git add *  #전체 파일 추가
+git commit -m '커밋메세지'
+
+#3) 리모트저장소에 push
+git push [리모트저장소명] [브랜치명] 
+  #ex: git push origin_shs shs
+
+
